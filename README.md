@@ -48,4 +48,4 @@ WB-ROSDOMOFON - это проект для интеграции сервиса �
 ### Отображение в SprutHub
 
 ## ПОХОЖИЕ ПРОЕКТЫ
-- rosdomofon-ha: https://github.com/iljyxa/rosdomofon-ha тот же функционал, но для использования с Home-Assistant
+- rosdomofon-ha: https://github.com/iljyxa/rosdomofon-ha тот же функционал, но для использования с Home Assistant
