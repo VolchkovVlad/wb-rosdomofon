@@ -1,0 +1,36 @@
+{
+  "name": "Замок",
+  "manufacturer": "РосДомофон",
+  "model": "Door",
+  "modelIds": [
+    "/devices/(16483A6659FB)/controls/lock_state/meta/type"
+  ],
+  "services": [
+    {
+      "name": "Замок",
+      "type": "LockMechanism",
+      "characteristics": [
+        {
+          "type": "LockTargetState",
+          "link": [
+            {
+              "type": "Integer",
+              "topicGet": "/devices/(1)/controls/lock",
+              "topicSet": "/devices/(1)/controls/lock/on"
+            }
+          ]
+        },
+        {
+          "type": "LockCurrentState",
+          "link": [
+            {
+              "type": "Integer",
+              "topicGet": "/devices/(1)/controls/lock_state"
+            }
+          ],
+          "validValues": "0,1,2,3"
+        }
+      ]
+    }
+  ]
+}
