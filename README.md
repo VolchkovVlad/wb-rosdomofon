@@ -1,2 +1,17 @@
-# wb-rosdomofon Драйвер для интеграции сервиса РосДомофон в ваш контроллер Wiren Board
-A service for integrating the RosDomofon account into the Wireless Board
+# WB-ROSDOMOFON
+Драйвер для интеграции сервиса РосДомофон в ваш контроллер Wiren Board
+
+## ОПИСАНИЕ
+WB-ROSDOMOFON - это проект для интеграции сервиса РосДомофон с контроллерами Wiren Board.
+Сервис позволяет:
+- Открывать двери / ворота / калитки / шлагбаумы
+- Получать RTSP ссылки для просмотра камер
+- Редактировать настройки пользователя:
+  - Заглушить звонки
+  - Заглушить уведомления от чатов
+Планируется к добавлению: 
+- Определение вызова
+- Функция автофахтера / курьера. (Автоматическое открытие двери при звонке в квартиру)
+
+Для взаимодействия с сервисом РосДомофон используется API: https://rdba.rosdomofon.com/swagger-ui.html?urls.primaryName=abonents
+Для взаимодействия с контроллером Wiren Board используется протокол MQTT. Топики формируются согласно Wiren Board MQTT Conventions: https://github.com/wirenboard/conventions/tree/main
