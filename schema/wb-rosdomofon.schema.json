@@ -335,7 +335,7 @@
       "users"
     ],
     "configFile": {
-      "path": "/mnt/data/wb-rosdomofon.cfg",
+      "path": "/mnt/data/wb-rosdomofon/wb-rosdomofon.cfg",
       "service": "wb-rosdomofon",
       "hide":false,
       "validate": false
