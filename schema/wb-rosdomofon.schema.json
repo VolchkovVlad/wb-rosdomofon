@@ -1,0 +1,374 @@
+{
+    "$schema": "http://json-schema.org/draft-07/hyper-schema#",
+    "title": "Title schema",
+    "type": "object",
+    "_format": "grid",
+    "definitions": {
+      "Device": {
+        "type": "object",
+        "_format": "grid",
+        "headerTemplate": "headerTemplate_Device",
+        "title": "Device",
+        "propertyOrder": 6,
+        "properties": {
+          "enable": {
+            "type": "string",
+            "title": "Enable adapter",
+            "propertyOrder": 1,
+            "default": "🟢",
+            "enum": ["🟢", "🔴"],
+            "options": {
+                "enum_titles": ["🟢 Enable", "🔴 Disable"],
+                "grid_columns": 2
+            }
+        },
+          "comment": {
+            "type": "string",
+            "title": "Comment",
+            "propertyOrder": 1,
+            "default": "",
+            "options": {
+                "grid_columns": 4
+            }
+          },
+          "adapterId": {
+              "type": "string",
+              "title": "Adapter ID",
+              "propertyOrder": 4,
+              "readonly": true,
+              "default": "",
+              "options": {
+                  "grid_columns": 2
+              }
+          },
+          "relay": {
+              "type": "string",
+              "title": "Relay adapter",
+              "propertyOrder": 4,
+              "readonly": true,
+              "default": "",
+              "options": {
+                  "grid_columns": 2
+              }
+          },
+          "camId": {
+              "type": "string",
+              "title": "Camera ID",
+              "propertyOrder": 5,
+              "readonly": true,
+              "default": "",
+              "options": {
+                  "grid_columns": 2
+              }
+          },
+          "type": {
+              "type": "string",
+              "title": "Device type",
+              "propertyOrder": 6,
+              "readonly": true,
+              "default": "",
+              "options": {
+                  "hidden": true,
+                  "grid_columns": 2
+              }
+          }
+        },
+        "defaultProperties": [
+          "enable",
+          "comment",
+          "adapterId"
+        ],
+        "required": [
+          "enable",
+          "comment",
+          "adapterId"
+        ],
+        "options": {
+            "compact": true,
+            "grid_columns": 12,
+            "keep_oneof_values": false,
+            "keep_only_existing_values": false,
+            "disable_collapse": true,
+            "disable_properties": true,
+            "disable_edit_json": true,
+            "wb": {
+                "disable_title": true
+            }
+        }
+      },
+      "user": {
+        "type": "object",
+        "_format": "grid",
+        "title": "User",
+        "headerTemplate": "headerTemplate_User",
+        "properties": {
+            "enable": {
+                "type": "string",
+                "title": "Enable user",
+                "propertyOrder": 1,
+                "default": "🟢",
+                "enum": ["🟢", "🔴"],
+                "options": {
+                    "enum_titles": ["🟢 Enable", "🔴 Disable"],
+                    "grid_columns": 2
+                }
+            },
+            "id": {
+                "type": "string",
+                "title": "ID",
+                "propertyOrder": 2,
+                "default": "1",
+                "options": {
+                    "grid_columns": 1
+                }
+            },
+            "comment": {
+                "type": "string",
+                "title": "Comment",
+                "propertyOrder": 3,
+                "default": "",
+                "options": {
+                    "grid_columns": 2
+                }
+            },
+            "number": {
+                "type": "string",
+                "title": "Phone humber",
+                "propertyOrder": 4,
+                "readonly": true,
+                "default": "",
+                "options": {
+                    "grid_columns": 2
+                }
+            },
+            "token": {
+                "type": "string",
+                "title": "Refresh token",
+                "propertyOrder": 4,
+                "readonly": true,
+                "default": "",
+                "options": {
+                    "grid_columns": 4
+                }
+            },
+            "listDevices": {
+                "type": "array",
+                "title": "List of devices",
+                "items": {
+                  "$ref": "#/definitions/Device"
+                },
+                "minItems": 0,
+                "_format": "tabs",
+                "propertyOrder": 5,
+                "options": {
+                  "compact": false,
+                  "grid_columns": 6,
+                  "enable_array_copy": true,
+                  "disable_collapse": true,
+                  "array_controls_top": true,
+                  "disable_array_delete_last_row": true
+                }
+            }
+        },
+        "options": {
+            "switcher": false,
+            "disable_collapse": true,
+            "disable_properties": true,
+            "disable_edit_json": false,
+            "array_controls_top": true,
+            "wb": {
+            "disable_title": true,
+            "disable_panel": true
+            }
+        },
+        "defaultProperties": [
+            "id",
+            "enable",
+            "comment",
+            "number",
+            "token",
+            "listDevices"
+        ],
+        "required": [
+            "id",
+            "enable",
+            "comment",
+            "number",
+            "token",
+            "listDevices"
+        ]
+      }
+    },
+    "properties": {
+      "enableDriver": {
+        "type": "boolean",
+        "title": "Enable driver",
+        "default": true,
+        "_format": "checkbox",
+        "propertyOrder": 2,
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "debug": {
+        "type": "boolean",
+        "title": "Enable debug logging",
+        "default": false,
+        "_format": "checkbox",
+        "propertyOrder": 3,
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "configVersion": {
+        "type": "string",
+        "title": "Config file version",
+        "template": "0.0.1",
+        "_format": "text",
+        "readonly": true,
+        "propertyOrder": 4,
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "driverVersion": {
+        "type": "string",
+        "title": "Driver version",
+        "_format": "text",
+        "readonly": true,
+        "propertyOrder": 5,
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "mqttIP": {
+        "type": "string",
+        "title": "MQTT IP",
+        "_format": "text",
+        "default": "localhost",
+        "readonly": false,
+        "propertyOrder": 6,
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "mqttPort": {
+        "type": "string",
+        "title": "MQTT port",
+        "_format": "text",
+        "readonly": false,
+         "default": "1883",
+        "propertyOrder": 7,
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "mqttLogin": {
+        "type": "string",
+        "title": "MQTT login",
+        "_format": "text",
+        "readonly": false,
+        "propertyOrder": 8,
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "mqttPassword": {
+        "type": "string",
+        "title": "MQTT password",
+        "_format": "text",
+        "readonly": false,
+        "propertyOrder": 9,
+        "options": {
+          "grid_columns": 3
+        }
+      },
+      "users": {
+        "type": "array",
+        "title": "Users",
+        "items": {
+          "$ref": "#/definitions/user"
+        },
+        "minItems": 1,
+        "_format": "tabs-top",
+        "propertyOrder": 10,
+        "default": {},
+        "options": {
+          "compact": false,
+          "enable_array_copy": true,
+          "disable_collapse": true,
+          "disable_array_delete_last_row": true
+        }
+      }
+    },
+    "options": {
+      "compact": true,
+      "disable_collapse": true,
+      "disable_edit_json": false,
+      "disable_properties": false,
+      "titleHidden": true,
+      "wb": {
+        "disable_title": false,
+        "disable_panel": true
+      }
+    },
+    "defaultProperties": [
+      "debug",
+      "configVersion",
+      "enableDriver",
+      "driverVersion",
+      "mqttIP",
+      "mqttPort",
+      "mqttLogin",
+      "mqttPassword",
+      "users"
+    ],
+    "required": [
+      "debug",
+      "configVersion",
+      "enableDriver",
+      "driverVersion",
+      "mqttIP",
+      "mqttPort",
+      "mqttLogin",
+      "mqttPassword",
+      "users"
+    ],
+    "configFile": {
+      "path": "/mnt/data/wb-rosdomofon.cfg",
+      "service": "wb-rosdomofon",
+      "hide":false,
+      "validate": false
+    },
+    "translations": {
+      "en": {
+        "Title schema": "Driver RosDomofon"
+      },
+      "ru": {
+        "Title schema": "Драйвер РосДомофон",
+        "Enable": "Включить",
+        "Enable driver": "Включить драйвер",
+        "Enable debug logging": "Включить логгирование",
+        "Config file version": "Версия конфигурационного файла",
+        "Driver version": "Версия драйвера",
+
+        "Users": "Пользователи",
+        "User": "Пользователь",
+        "Comment": "Комментарий",
+        "🟢 Enable": "🟢 Включить",
+        "🔴 Disable": "🔴 Выключить",
+        "Enable user": "Включить пользователя",
+        "headerTemplate_User": "{{self.enable}} ID:{{self.id}} {{self.comment}}",
+        "headerTemplate_Device": "{{self.enable}} ID: {{self.adapterId}} {{self.comment}}",
+        "Phone humber": "Номер телефона",
+        "Refresh token": "Токен обновления",
+        "ID": "Идентификатор",
+        "Adapter ID": "Идентификатор устройства",
+        "Camera ID": "Идентификатор камеры",
+        "Enable adapter": "Включить устройство",
+        "Relay adapter": "Реле устройства",
+        "List of devices": "Список устройcтв",
+        "Device": "Устройство"
+      }
+    }
+  }

@@ -1,0 +1,19 @@
+{
+  "name": "wb-rosdomofon",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Minimal Node.js service skeleton for Wiren Board Rosdomofon integration",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "NODE_ENV=development node src/index.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "mqtt": "^5.14.1"
+  }
+}

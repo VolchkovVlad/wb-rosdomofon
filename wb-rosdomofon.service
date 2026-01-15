@@ -1,0 +1,18 @@
+[Unit]
+Description=WB Rosdomofon integration service
+After=network.target mosquitto.service
+Wants=mosquitto.service
+
+[Service]
+Type=simple
+WorkingDirectory=/mnt/data/wb-rosdomofon
+ExecStart=/usr/bin/node src/index.cjs
+Restart=always
+RestartSec=3
+TimeoutStopSec=5
+KillSignal=SIGTERM
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
