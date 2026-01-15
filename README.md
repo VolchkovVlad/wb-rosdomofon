@@ -20,6 +20,9 @@ WB-ROSDOMOFON - это проект для интеграции сервиса �
 - Топики формируются согласно Wiren Board MQTT Conventions: https://github.com/wirenboard/conventions/tree/main
 
 ## УСТАНОВКА
+1) Подключаемся к контроллеру Wiren Board по SSH. По умолчанию логин: root | пароль: wirenboard
+2) Вводим команду curl -fsSL https://raw.githubusercontent.com/VolchkovVlad/wb-rosdomofon/main/install-remote.sh | sh
+3) Если "[wb-rosdomofon] Installation completed" значит установка завершена, можно отключаться от SSH.
 
 ## ВХОД В АККАУНТ
 
