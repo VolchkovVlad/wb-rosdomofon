@@ -2,10 +2,15 @@
 Description=WB Rosdomofon integration service
 After=network.target mosquitto.service
 Wants=mosquitto.service
+StartLimitIntervalSec=60
+StartLimitBurst=5
 
 [Service]
 Type=simple
+User=root
 WorkingDirectory=/mnt/data/wb-rosdomofon
+Environment=NODE_ENV=production
+ExecStartPre=/usr/bin/test -f /mnt/data/wb-rosdomofon.cfg
 ExecStart=/usr/bin/node src/index.cjs
 Restart=always
 RestartSec=3
