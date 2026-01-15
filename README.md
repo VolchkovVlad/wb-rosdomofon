@@ -21,13 +21,13 @@ WB-ROSDOMOFON - это проект для интеграции сервиса �
 
 ## УСТАНОВКА
 1) Подключаемся к контроллеру Wiren Board по SSH. По умолчанию логин: root | пароль: wirenboard
-2) Вводим команду curl -fsSL https://raw.githubusercontent.com/VolchkovVlad/wb-rosdomofon/main/install-remote.sh | sh
+2) Вводим команду ```curl -fsSL https://raw.githubusercontent.com/VolchkovVlad/wb-rosdomofon/main/install-remote.sh | sh```
 3) Если "[wb-rosdomofon] Installation completed" значит установка завершена, можно отключаться от SSH.
 
 ## УДАЛЕНИЕ
 1) Подключаемся к контроллеру Wiren Board по SSH. По умолчанию логин: root | пароль: wirenboard
-2) Переходим в директорию cd /mnt/data/wb-rosdomofon
-3) Вызываем файл удаления ./uninstall.sh
+2) Переходим в директорию ```cd /mnt/data/wb-rosdomofon```
+3) Вызываем файл удаления ```./uninstall.sh```
 
 ## ВХОД В АККАУНТ
 
