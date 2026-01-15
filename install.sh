@@ -10,9 +10,7 @@ SERVICE_FILE="/etc/systemd/system/wb-rosdomofon.service"
 echo "[wb-rosdomofon] Installing..."
 
 # 1. Код
-mkdir -p "$APP_DIR"
-cp -r ./src "$APP_DIR/"
-cp package*.json "$APP_DIR/"
+APP_DIR="/mnt/data/wb-rosdomofon"
 
 # 2. Schema
 mkdir -p "$SCHEMA_DIR"
