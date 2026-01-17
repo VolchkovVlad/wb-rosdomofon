@@ -18,7 +18,7 @@ class CFG {                                                   // Класс дл
             throw new Error(`[libCFG] ❌ Ошибка чтения ${fullPath}: ${e.message}`); // Обрабатываем ошибки чтения или парсинга файла
         }
     }
-    write_rosdomofon_config(configPath = '../wb-rosdomofon.cfg', data) { // Метод для записи конфигурации пользователя в файл
+    write_rosdomofon_config(configPath = 'wb-rosdomofon.cfg', data) { // Метод для записи конфигурации пользователя в файл
         const fullPath = path.resolve(process.cwd(), '..', configPath);  // Преобразуем относительный путь к файлу в абсолютный на основе текущей папки
 
         try {
