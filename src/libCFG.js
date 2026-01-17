@@ -19,7 +19,7 @@ class CFG {                                                   // Класс дл
         }
     }
     write_rosdomofon_config(configPath = '../wb-rosdomofon.cfg', data) { // Метод для записи конфигурации пользователя в файл
-        const fullPath = path.resolve(__dirname, configPath); // Преобразуем относительный путь к файлу в абсолютный на основе текущей папки
+        const fullPath = path.resolve(process.cwd(), '..', configPath);  // Преобразуем относительный путь к файлу в абсолютный на основе текущей папки
 
         try {
             const jsonString = JSON.stringify(data, null, 2); // Преобразуем объект данных в строку JSON с отступами для читаемости
