@@ -3,8 +3,8 @@ const path = require('path'); // Модуль для безопасной раб
 
 
 class CFG {                                                   // Класс для централизованной работы с конфигурационными файлами
-    read_rosdomofon_config(configPath = '../wb-rosdomofon.cfg') { // Метод для чтения конфигурации РосДомофона из файла
-        const fullPath = path.resolve(__dirname, configPath); // Преобразуем относительный путь к файлу в абсолютный на основе текущей папки
+    read_rosdomofon_config(configPath = 'wb-rosdomofon.cfg') { // Метод для чтения конфигурации РосДомофона из файла
+        const fullPat = path.resolve(process.cwd(), '..', configPath);  
 
         if (!fs.existsSync(fullPath)) {                       // Проверяем, существует ли файл
             throw new Error(`[libCFG] ⚠️ Файл не найден: ${fullPath}`);
