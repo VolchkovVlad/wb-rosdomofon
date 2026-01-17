@@ -3,7 +3,7 @@ set -e
 
 SERVICE="wb-rosdomofon"
 APP_DIR="/mnt/data/wb-rosdomofon"
-CFG_FILE="/mnt/data/wb-rosdomofon/wb-rosdomofon.cfg"
+CFG_FILE="/mnt/data/wb-rosdomofon.cfg"
 SCHEMA="/usr/share/wb-mqtt-confed/schemas/wb-rosdomofon.schema.json"
 UNIT="/etc/systemd/system/wb-rosdomofon.service"
 
