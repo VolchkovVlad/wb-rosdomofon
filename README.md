@@ -107,7 +107,7 @@ cd /mnt/data/wb-rosdomofon
 4. В правом верхнем углу нажимаем «+»
 
 <p align="left">
-  <img src="docs/img/ControlllerMQTT.png">
+  <img src="docs/img/ControllerMQTT.png">
 </p>
 
 5. В списке выбираем «MQTT»
