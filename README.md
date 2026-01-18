@@ -111,14 +111,14 @@ cd /mnt/data/wb-rosdomofon
 4. В правом верхнем углу нажимаем «+»
 
 <p align="left">
-  <img src="docs/img/ControllerMQTT.png" width="700">
+  <img src="docs/img/ControllerMQTT.png" width="500">
 </p>
 
 5. В списке выбираем «MQTT»
 6. Загружаем шаблон файлом либо вставляем содержимое вручную
 
 <p align="left">
-  <img src="docs/img/Search.png" width="700">
+  <img src="docs/img/Search.png" width="500">
 </p>
 
 7. Открываем вкладку «Контроллеры»
