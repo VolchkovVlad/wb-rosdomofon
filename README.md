@@ -92,10 +92,8 @@ cd /mnt/data/wb-rosdomofon
 ---
 ### Добавление замка
 
-1. Скачиваем шаблон для замка:  
-   [Шаблон для версии SprutHub 1.12.8](examples/SprutHub_lock.json)  
-   Для более новых версий SprutHub вероятно потребуется обновить шаблон:  
-   [Сервис для создания / обновления шаблонов](https://kirillashikhmin.github.io/sht/editor/)
+1. Скачиваем шаблон для замка:  [Шаблон для версии SprutHub 1.12.8](examples/SprutHub_lock.json)  
+   Для более новых версий SprutHub вероятно потребуется обновить шаблон:  [Сервис для создания / обновления шаблонов](https://kirillashikhmin.github.io/sht/editor/)
 
 2. Открываем веб-интерфейс SprutHub одним из способов:
    - [web.spruthub.ru](https://web.spruthub.ru)
