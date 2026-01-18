@@ -352,6 +352,11 @@
         "Config file version": "Версия конфигурационного файла",
         "Driver version": "Версия драйвера",
 
+        "MQTT IP": "MQTT брокер: IP адрес",
+        "MQTT port": "MQTT брокер: порт",
+        "MQTT login": "MQTT брокер: логин",
+        "MQTT password": "MQTT брокер: пароль",
+
         "Users": "Пользователи",
         "User": "Пользователь",
         "Comment": "Комментарий",
