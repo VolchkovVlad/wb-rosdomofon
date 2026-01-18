@@ -97,6 +97,7 @@ cd /mnt/data/wb-rosdomofon
 3) Открываем веб интерфейс SprutHub. Одним из двух способов:
 - [web.spruthub.ru](https://web.spruthub.ru)
 - <IP Контроллера с SH>:7777
+<br>
 ![Вкладка каталог](docs/img/openCatalog.png)
 3) Открываем вкладку "Каталог"
 4) В правом верхнем углу нажимаем "+"
