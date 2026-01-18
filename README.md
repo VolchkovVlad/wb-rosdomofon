@@ -40,7 +40,9 @@ cd /mnt/data/wb-rosdomofon
 
 ## Вход в аккаунт РосДомофон
 ### Для продолжения работы, необходимо войти в свою учетную запись. Открываем веб интерфейс контроллера Wiren Board и переходим на вкладку "Устройства".
-![Устройство для входа в личный кабинет](docs/img/Auth.png)
+<p align="left">
+  <img src="docs/img/Auth.png" width="500">
+</p>
 1) Введите номер телефона привязанный к аккаунту (Можно вводить начиная с 8 скрипт подправит на +7)
 2) Нажимаете отправить SMS
 3) Вводите полученый код подтверждения
@@ -48,7 +50,7 @@ cd /mnt/data/wb-rosdomofon
    
 ### Отображение параметров пользователя
 <p align="left">
-  <img src="docs/img/UserInfo.png" width="700">
+  <img src="docs/img/UserInfo.png" width="500">
 </p>
 
 Отображаемые параметры:
@@ -64,7 +66,7 @@ cd /mnt/data/wb-rosdomofon
 
 ### Отображение домофона с камерой
 <p align="left">
-  <img src="docs/img/Intercom.png" width="700">
+  <img src="docs/img/Intercom.png" width="500">
 </p>
 
 Отображаемые параметры:
@@ -111,14 +113,14 @@ cd /mnt/data/wb-rosdomofon
 4. В правом верхнем углу нажимаем «+»
 
 <p align="left">
-  <img src="docs/img/ControllerMQTT.png" width="500">
+  <img src="docs/img/ControllerMQTT.png" width="700">
 </p>
 
 5. В списке выбираем «MQTT»
 6. Загружаем шаблон файлом либо вставляем содержимое вручную
 
 <p align="left">
-  <img src="docs/img/Search.png" width="500">
+  <img src="docs/img/Search.png" width="700">
 </p>
 
 7. Открываем вкладку «Контроллеры»
