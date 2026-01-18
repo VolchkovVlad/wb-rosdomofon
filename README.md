@@ -26,7 +26,7 @@ WB-ROSDOMOFON - это проект для интеграции сервиса �
 - Определение вызова
 - Функция автофахтера / курьера. (Автоматическое открытие двери при звонке в квартиру)
 ---
-РосДомофон API: https://rdba.rosdomofon.com/swagger-ui.html?urls.primaryName=abonents <br>
+Взаимодействие с РосДомофон: [РосДомофон API](https://rdba.rosdomofon.com/swagger-ui.html?urls.primaryName=abonents) <br>
 MQTT топики формируются согласно [Wiren Board MQTT Conventions](https://github.com/wirenboard/conventions/tree/main)
 
 ## Установка
