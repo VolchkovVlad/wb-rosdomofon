@@ -98,7 +98,7 @@ cd /mnt/data/wb-rosdomofon
 - [web.spruthub.ru](https://web.spruthub.ru)
 - <IP Контроллера с SH>:7777
 
-![Вкладка каталог](docs/img/OpenCatalog.png)
+![Вкладка каталог](docs/img/openCatalog.png)
 3) Открываем вкладку "Каталог"
 4) В правом верхнем углу нажимаем "+"
 ![Контроллер MQTT](docs/img/Controller_MQTT.png)
