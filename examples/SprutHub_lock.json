@@ -1,9 +1,9 @@
 {
   "name": "Замок",
-  "manufacturer": "РосДомофон",
-  "model": "Door",
+  "manufacturer": "wb-rosdomofon",
+  "model": "Lock",
   "modelIds": [
-    "/devices/(^[0-9A-F]{12}$)/controls/lock_state/meta/type"
+    "/devices/([0-9A-F]{12})/controls/lock_state/meta/type"
   ],
   "services": [
     {
