@@ -92,8 +92,12 @@ cd /mnt/data/wb-rosdomofon
 ## Интеграция с SprutHub
 ### Интеграция замка
 1) Скачиваем шаблон для замка: [Шаблон для версии SprutHub 1.12.8](examples/SprutHub_lock.json)<br>
-Для более новых версий SprutHub вероятно потребуется обновить шаблон. [Сервис для обновления шаблонов](https://kirillashikhmin.github.io/sht/editor/)
-2) Открываем веб интерфейс SprutHub. Одним из двух способов:
+Для более новых версий SprutHub вероятно потребуется обновить шаблон: 
+<a href="[https://example.com](https://kirillashikhmin.github.io/sht/editor/)" target="_blank" rel="noopener noreferrer">
+  Открыть сайт
+</a>
+
+3) Открываем веб интерфейс SprutHub. Одним из двух способов:
 - web.spruthub.ru
 - <IP Контроллера с SH>:7777
 3) Открываем вкладку "Каталог"
