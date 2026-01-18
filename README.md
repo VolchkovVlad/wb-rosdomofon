@@ -96,7 +96,7 @@ cd /mnt/data/wb-rosdomofon
 
 
 3) Открываем веб интерфейс SprutHub. Одним из двух способов:
-- [web.spruthub.ru](web.spruthub.ru)
+- [web.spruthub.ru](https://web.spruthub.ru)
 - <IP Контроллера с SH>:7777
 3) Открываем вкладку "Каталог"
 4) В правом верхнем углу нажимаем "+"
@@ -107,7 +107,7 @@ cd /mnt/data/wb-rosdomofon
 
 ### Камера
 1) Открываем веб интерфейс SprutHub. Одним из двух способов:
-- [web.spruthub.ru](web.spruthub.ru)
+- [web.spruthub.ru](https://web.spruthub.ru)
 - <IP Контроллера с SH>:7777
 2) Открываем вкладку "Контроллеры"
 3) В правом верхнем углу нажимаем "+"
