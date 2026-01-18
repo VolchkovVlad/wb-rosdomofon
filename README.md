@@ -98,14 +98,14 @@ cd /mnt/data/wb-rosdomofon
 - [web.spruthub.ru](https://web.spruthub.ru)
 - <IP Контроллера с SH>:7777
 
-![Вкладка каталог](docs/img/openCatalog.png)
+![Вкладка каталог](docs/img/openCatalog.png)<br>
 3) Открываем вкладку "Каталог".<br>
 4) В правом верхнем углу нажимаем "+".<br>
-<img src="docs/img/Controller_MQTT.png" width="400">
+<img src="docs/img/Controller_MQTT.png" width="400"><br>
 5) В спике выбираем "MQTT".<br>
-<img src="docs/img/CreateTemplate.png" width="400">
+<img src="docs/img/CreateTemplate.png" width="400"><br>
 6) Загружаем файлом либо копируем содержимое и вставляем.<br>
-<img src="docs/img/SearchDevice.png" width="400">
+<img src="docs/img/SearchDevice.png" width="400"><br>
 7) Открываем вкладку "Контроллеры"<br>
 8) Запускаем поиск устройтсв в контроллере MQTT
 
