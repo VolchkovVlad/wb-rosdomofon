@@ -1,5 +1,15 @@
 # WB-ROSDOMOFON
 Драйвер для интеграции сервиса РосДомофон в ваш контроллер Wiren Board
+Навигация:
+- [Описание](https://github.com/VolchkovVlad/wb-rosdomofon#описание)
+- [Установка](https://github.com/VolchkovVlad/wb-rosdomofon#установка)
+- [Удаление](https://github.com/VolchkovVlad/wb-rosdomofon#удаление)
+- [Авторизация](https://github.com/VolchkovVlad/wb-rosdomofon#описание)
+- [Конфигурационный файл](https://github.com/VolchkovVlad/wb-rosdomofon?tab=readme-ov-file#конфигурационный-файл)
+- [Интеграция в SprutHub](https://github.com/VolchkovVlad/wb-rosdomofon?tab=readme-ov-file#интеграция-с-spruthub)
+  - [Замок](https://github.com/VolchkovVlad/wb-rosdomofon?tab=readme-ov-file#добавление-замка)
+  - [Камера](https://github.com/VolchkovVlad/wb-rosdomofon?tab=readme-ov-file#добавление-камеры)
+  - [Пример отображения](https://github.com/VolchkovVlad/wb-rosdomofon?tab=readme-ov-file#отображение-в-spruthub)
 
 ## Описание
 WB-ROSDOMOFON - это проект для интеграции сервиса РосДомофон с контроллерами Wiren Board.
