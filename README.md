@@ -102,7 +102,7 @@ cd /mnt/data/wb-rosdomofon
    - `<IP контроллера с SH>:7777`
 
 <p align="center">
-  <img src="docs/img/openCatalog.png" width="500">
+  <img src="docs/img/openCatalog.png">
 </p>
 
 3. Открываем вкладку «Каталог»
