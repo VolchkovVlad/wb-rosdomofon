@@ -166,5 +166,9 @@ cd /mnt/data/wb-rosdomofon
 ---
 ### Отображение в SprutHub
 
+<p align="left">
+  <img src="docs/img/SprutHubViewExample.png" width="500">
+</p>
+
 ## Похожие проекты
 - rosdomofon-ha: https://github.com/iljyxa/rosdomofon-ha тот же функционал, но для использования с Home Assistant
