@@ -119,7 +119,9 @@ cd /mnt/data/wb-rosdomofon
 <p align="center">
   <img src="docs/img/IntegrationDiagram.png">
 </p>
+
 ---
+
 ### Добавление замка
 
 1. Скачиваем шаблон для замка:  [Шаблон для версии SprutHub 1.12.8](examples/SprutHub_lock.json)  
