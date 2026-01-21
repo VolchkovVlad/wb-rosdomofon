@@ -167,7 +167,7 @@ cd /mnt/data/wb-rosdomofon
 ### Отображение в SprutHub
 
 <p align="left">
-  <img src="docs/img/SprutHubViewExample.png" width="500">
+  <img src="docs/img/SprutHubViewExample.png" width="400">
 </p>
 
 ## Похожие проекты
