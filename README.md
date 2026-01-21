@@ -117,7 +117,7 @@ cd /mnt/data/wb-rosdomofon
 ## Интеграция с SprutHub
 Интеграция в SprutHub позволяет управлять вашими устройствами через HomeKit, Яндекс и веб приложение SprutHub. А так же просматривать камеры в HomeKit и веб приложении SprutHub
 <p align="center">
-  <img src="docs/img/wb-rosdomofon_sh.png">
+  <img src="docs/img/IntegrationDiagram.png">
 </p>
 
 ### Добавление замка
