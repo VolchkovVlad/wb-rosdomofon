@@ -71,6 +71,17 @@
                   "hidden": true,
                   "grid_columns": 2
               }
+          },
+          "rdvaUri": {
+              "type": "string",
+              "title": "RDVA URI",
+              "propertyOrder": 7,
+              "readonly": true,
+              "default": "",
+              "options": {
+                  "hidden": true,
+                  "grid_columns": 2
+              }
           }
         },
         "defaultProperties": [
