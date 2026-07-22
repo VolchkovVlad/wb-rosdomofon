@@ -128,7 +128,9 @@ function waitForConnect(wb, timeoutMs = 5000) {
 
 function read_wb_rosdomofon_cfg() {
   cfg_rosdomofon = cfg.read_rosdomofon_config()
+  console.log(cfg_rosdomofon.driverVersion, DRIVER_VERSION)
   if(cfg_rosdomofon.driverVersion != DRIVER_VERSION){
+    cfg_rosdomofon.driverVersion = DRIVER_VERSION
     cfg.write_rosdomofon_config(undefined, cfg_rosdomofon)
   }
   if(!cfg_rosdomofon.enableDriver) return    // Если драйвер не включен, выходим из функции
