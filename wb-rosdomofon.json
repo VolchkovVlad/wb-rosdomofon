@@ -1,0 +1,13 @@
+{
+  "id": "integrations",
+  "children": [
+    {
+      "id": "rosdomofon",
+      "url": "configs/edit/~2Fusr~2Fshare~2Fwb-mqtt-confed~2Fschemas~2Fwb-rosdomofon.schema.json",
+      "title": {
+        "ru": "РосДомофон",
+        "en": "RosDomofon"
+      }
+    }
+  ]
+}

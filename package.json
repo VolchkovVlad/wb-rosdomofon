@@ -1,12 +1,12 @@
 {
   "name": "wb-rosdomofon",
-  "version": "0.0.1",
+  "version": "1.1.0",
   "private": true,
-  "description": "Minimal Node.js service skeleton for Wiren Board Rosdomofon integration",
-  "main": "src/index.js",
+  "description": "RosDomofon integration service for Wiren Board",
+  "main": "src/index.cjs",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "NODE_ENV=development node src/index.js"
+    "start": "node src/index.cjs",
+    "dev": "NODE_ENV=development node src/index.cjs"
   },
   "engines": {
     "node": ">=16"

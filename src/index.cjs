@@ -1,12 +1,85 @@
 const WB  = require('./libWB');   // Подключаем библиотеку для работы с WirenBoard
 const RD  = require('./libRD');   // Подключаем библиотеку для работы c РосДомофоном
 const CFG = require('./libCFG');  // Подключаем библиотеку для работы с Конфигурационными файлами
+const HLSProxy = require('./libHLSProxy'); //Подключаем библиотеку для проксирования HLS Потока с камеры
+const os = require('os');
+
+const DRIVER_VERSION = "1.1.0"
 
 const wb = new WB();
 const rd = new RD();
 const cfg = new CFG();
+
+const hlsProxy = new HLSProxy({
+  host: '0.0.0.0',
+  port: 8099
+});
+
+hlsProxy.start();
 let cfg_rosdomofon;  // Глобальная переменная для хранения конфигурации драйвера РосДомофон
 let isConnected = false;
+
+function getControllerIp() {
+  const interfaces = os.networkInterfaces();
+
+  /*
+   * Для Wiren Board сначала проверяем наиболее вероятные
+   * сетевые интерфейсы в приоритетном порядке.
+   */
+  const preferredInterfaces = [
+    'eth0',
+    'end0',
+    'wlan0'
+  ];
+
+  for (const interfaceName of preferredInterfaces) {
+    const addresses = interfaces[interfaceName];
+
+    if (!addresses) {
+      continue;
+    }
+
+    for (const address of addresses) {
+      if (
+        address.family === 'IPv4' &&
+        !address.internal &&
+        !address.address.startsWith('169.254.')
+      ) {
+        return address.address;
+      }
+    }
+  }
+
+  /*
+   * Если интерфейс называется иначе,
+   * ищем любой подходящий внешний IPv4.
+   */
+  for (const interfaceName of Object.keys(interfaces)) {
+    const addresses = interfaces[interfaceName] || [];
+
+    for (const address of addresses) {
+      if (
+        address.family === 'IPv4' &&
+        !address.internal &&
+        !address.address.startsWith('169.254.')
+      ) {
+        return address.address;
+      }
+    }
+  }
+
+  return null;
+}
+
+const controllerIp = getControllerIp();
+
+if (controllerIp) {
+  console.log(`[RosDomofon] IP-адрес контроллера: ${controllerIp}`);
+} else {
+  console.error(
+    '[RosDomofon] Не удалось определить IP-адрес контроллера'
+  );
+}
 
 function waitForConnect(wb, timeoutMs = 5000) {
   return new Promise((resolve, reject) => {
@@ -55,6 +128,9 @@ function waitForConnect(wb, timeoutMs = 5000) {
 
 function read_wb_rosdomofon_cfg() {
   cfg_rosdomofon = cfg.read_rosdomofon_config()
+  if(cfg_rosdomofon.driverVersion != DRIVER_VERSION){
+    cfg.write_rosdomofon_config(undefined, cfg_rosdomofon)
+  }
   if(!cfg_rosdomofon.enableDriver) return    // Если драйвер не включен, выходим из функции
   const users = cfg_rosdomofon.users
   users.forEach(user => {
@@ -630,15 +706,38 @@ async function loading_user(user_params) {
     //////////////////////
 
     if(device_params.camId != undefined ) {                             //Если на нашем адаптере есть камера
-
+      const camId = String(device_params.camId);
+      hlsProxy.addCamera(camId,device_params.rdvaUri,() => access_token);
+      /*
       wb.createControl(ADAPTER_ID, "rtsp", {                            //Создаем контрол для RTSP ссылки
-        title: {ru: "Камера", en:  "Camera"},
+        title: {ru: "Камера RTSP", en:  "Camera RTSP"},
         type: "text",
         readonly: true,
         order: 3,
       })
+      */
+      wb.createControl(ADAPTER_ID, "hls", {                            //Создаем контрол для RTSP ссылки
+        title: {ru: "Камера HLS", en:  "Camera HLS"},
+        type: "text",
+        readonly: true,
+        order: 4,
+      })
 
-      wb.dev[ADAPTER_ID + "/rtsp"] = await rd.get_rtsp(access_token, device_params.camId);   //Записываем RTSP ссылку в контрол  
+      wb.createControl(ADAPTER_ID, "hls_proxy", {                            //Создаем контрол для RTSP ссылки
+        title: {ru: "Камера HLS Прокси", en:  "Camera HLS Proxy"},
+        type: "text",
+        readonly: true,
+        order: 5,
+      })
+
+      wb.dev[ADAPTER_ID + '/hls'] = await rd.get_hls(access_token, device_params);   //Записываем HLS ссылку в контрол
+
+      const hlsUrl = controllerIp
+        ? `http://${controllerIp}:8099/hls/${camId}.m3u8`
+        : `http://127.0.0.1:8099/hls/${camId}.m3u8`;
+
+      wb.dev[ADAPTER_ID + '/hls_proxy'] = hlsUrl;
+      //wb.dev[ADAPTER_ID + "/rtsp"] = await rd.get_rtsp(access_token, device_params.camId);   //Записываем RTSP ссылку в контрол  
     }
   
   }
@@ -672,6 +771,7 @@ async function get_devices (access_token) {
       user_list_devices.push({
         ...device,
         camId: String(camera.id),
+        rdvaUri: camera.rdvaUri,
       });
     } else {
       // если у устройства нет камеры — кладём как есть
@@ -690,6 +790,7 @@ async function get_devices (access_token) {
         comment: "",
         adapterId: rdaUid,
         camId: String(camera.id),
+        rdvaUri: camera.rdvaUri,
       });
     }
   } 

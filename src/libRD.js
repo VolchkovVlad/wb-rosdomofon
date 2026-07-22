@@ -146,7 +146,7 @@ class RD {
 
   async get_cameras(access_token, rawFlag){
      try {
-      const url = `${apiBaseUrl}/abonents-service/api/v2/abonents/cameras`;
+      const url = `${apiBaseUrl}/abonents-service/api/v3/abonents/cameras`;
       const headers = {
         'Authorization': `Bearer ${access_token}`,
         'Content-Type': 'application/json'
@@ -162,6 +162,7 @@ class RD {
           cameras.push({
             rdaUid: cam.rdaUid,
             comment: comment,
+            rdvaUri: cam.rdvaUri,
             id: cam.id,
           })
         });
@@ -179,7 +180,51 @@ class RD {
 
   }
 
-  async get_rtsp(access_token, camId, rawFlag){
+  async get_hls(access_token, device_params, rawFlag) {
+    if (device_params.rdvaUri != undefined) {
+      return `https://s.${device_params.rdvaUri}/live/${device_params.camId}.m3u8`;
+    }
+
+    const cameraList = await this.get_cameras(access_token);
+
+    if (!cameraList) {
+      return null;
+    }
+
+    const camera = cameraList.find(item => item.id == device_params.camId);
+
+    if (!camera) {
+      return null;
+    }
+
+    return `https://s.${camera.rdvaUri}/live/${device_params.camId}.m3u8`;
+  }
+
+  async open_door(access_token, adapterId, relay) {
+    try {
+      const url = `${apiBaseUrl}/rdas-service/api/v1/rdas/${adapterId}/activate_key`;
+      const headers = {
+        Authorization: `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      };
+
+      const body = {
+        rele: relay
+      };
+
+      const res = await axios.post(url, body, { headers });
+      return res.data;
+    } catch (e) {
+      console.error(
+        '[RD] open_door error:',
+        e?.response?.status,
+        e?.response?.data || e.message
+      );
+      return null;
+    }
+  }
+
+  async get_rtsp(access_token, camId, rawFlag){           //Функция устарела. Ввиду ограничений с стороны Рос Домофона.
     try {
       const url = `${apiBaseUrl}/cameras-service/api/v1/cameras/${camId}`;
       const headers = {
@@ -206,30 +251,6 @@ class RD {
 
       }catch (e) {
       console.error('[RD] get_rtsp error:',
-        e?.response?.status,
-        e?.response?.data || e.message
-      );
-      return null;
-    }
-  }
-
-  async open_door(access_token, adapterId, relay) {
-    try {
-      const url = `${apiBaseUrl}/rdas-service/api/v1/rdas/${adapterId}/activate_key`;
-      const headers = {
-        Authorization: `Bearer ${access_token}`,
-        'Content-Type': 'application/json'
-      };
-
-      const body = {
-        rele: relay
-      };
-
-      const res = await axios.post(url, body, { headers });
-      return res.data;
-    } catch (e) {
-      console.error(
-        '[RD] open_door error:',
         e?.response?.status,
         e?.response?.data || e.message
       );
