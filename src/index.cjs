@@ -4,7 +4,7 @@ const CFG = require('./libCFG');  // Подключаем библиотеку �
 const HLSProxy = require('./libHLSProxy'); //Подключаем библиотеку для проксирования HLS Потока с камеры
 const os = require('os');
 
-const DRIVER_VERSION = "1.1.0"
+const DRIVER_VERSION = "1.1.1"
 
 const wb = new WB();
 const rd = new RD();
@@ -450,34 +450,76 @@ async function loading_user(user_params) {
   let expires_in;                               // Время жизни токена доступа
   let settings = {}                             // Настройки пользователя (заглушить звонки и чаты)
 
+  await connect_user()
+  async function connect_user() {
+    const tokenReady = await refresh_access_token();
+
+    if (!tokenReady) {
+      console.error(
+        `[wb-rosdomofon] Пользователь №${user_params.id} | Повтор подключения через минуту`
+      );
+
+      setTimeout(connect_user, 60 * 1000);
+      return;
+    }
+
+    const syncReady = await synchronization_user_info();
+
+    if (!syncReady) {
+      console.error(
+        `[wb-rosdomofon] Пользователь №${user_params.id} | Повтор синхронизации через минуту`
+      );
+
+      setTimeout(connect_user, 60 * 1000);
+      return;
+    }
+  }
+
   async function refresh_access_token() {
     const rawGetAccessToken = await rd.get_access_token(REFREAH_TOKEN, true);
+
     if (!rawGetAccessToken || !rawGetAccessToken.access_token || !rawGetAccessToken.expires_in) {
-      console.error(`[wb-rosdomofon] Пользователь №${user_params.id} | Ошибка получения access token, попробую через минуту`);
-      refresh_timer = setTimeout(refresh_access_token, 60 * 1000);
-      return;
+        console.error(
+            `[wb-rosdomofon] Пользователь №${user_params.id} | Ошибка получения access token`
+        );
+
+        return false;
     }
 
     access_token = rawGetAccessToken.access_token;
     expires_in = rawGetAccessToken.expires_in;
-    
-    wb.dev[`${DEVICE_NAME}/access_token`] = access_token                                  // Записываем в контрол токен доступа пользователя
-    wb.dev[`${DEVICE_NAME}/token_updated`] = `${new Date().toLocaleTimeString('ru-RU', {  // Записываем в контрол время обновления токена
-        day: '2-digit',
-        month: '2-digit',
-        year: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      }).replace(',', ' |')}`;
 
-    refresh_timer = setTimeout(refresh_access_token,(expires_in - 300) * 1000);
+    wb.dev[`${DEVICE_NAME}/access_token`] = access_token;
+
+    wb.dev[`${DEVICE_NAME}/token_updated`] =
+        `${new Date().toLocaleTimeString('ru-RU', {
+            day: '2-digit',
+            month: '2-digit',
+            year: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        }).replace(',', ' |')}`;
+
+    refresh_timer = setTimeout(
+        refresh_access_token,
+        (expires_in - 300) * 1000
+    );
+
+    return true;
   }
 
-  await refresh_access_token();                                                          // Вызываем функцию которая будет обновлять нам токен доступа
-
   async function synchronization_user_info() {                                           // Функция для синхронизации параметров пользователя
-    synchronization = check_change_devices(await get_devices(access_token), list_device) // Проверяем есть ли разница между свежим списком устройств и списком в конфиге
+    //synchronization = check_change_devices(await get_devices(access_token), list_device) // Проверяем есть ли разница между свежим списком устройств и списком в конфиге
+
+    const currentDevices = await get_devices(access_token);
+
+    if (currentDevices == null) {
+      console.error(`[wb-rosdomofon] Пользователь №${user_params.id} | Не удалось синхронизировать устройства`);
+      return false;
+    }
+
+    synchronization = check_change_devices(currentDevices,list_device);
 
     const userIndex = cfg_rosdomofon.users.findIndex(                                    // Получаем index пользователя в списке пользователей
       user => user.id === user_params.id
@@ -492,10 +534,10 @@ async function loading_user(user_params) {
         };
         cfg.write_rosdomofon_config(undefined, cfg_rosdomofon)                           //Вызываем функцию которая запишет изменения в файл
       }
-    } 
+    }
+    return true
   }
 
-  await synchronization_user_info()                                                      //На всякий случай проверяем перед дальнейшей загрузкой что у нас в кофиге и в реальности
   ///////////////////////////////////////////////////////////////////////////
   // Создание устройства и контролов в WirenBoard для данного пользователя //
   ///////////////////////////////////////////////////////////////////////////
@@ -574,9 +616,11 @@ async function loading_user(user_params) {
     user_settings(settings)
   });
 
-  list_device.forEach(device => {                                   //Создаем устройства пользователя
-    create_device(device)
-  });
+  for (const device of list_device) {
+    await create_device(device);
+  }
+
+  await update_blocked_status();
 
   async function create_device(device_params) {
     if(device_params.enable != "🟢") return       //Если устройтсво выключено, не создаем его
@@ -680,6 +724,7 @@ async function loading_user(user_params) {
       wb.subscribe(ADAPTER_ID, "lock/on", async (newValue) => {   //Подписываемся на изменение контрола замка
         if(newValue == "0"){                                      //Если новое значение замка "Открыть", то:
           let unlock_status = await rd.open_door(access_token, ADAPTER_ID, device_params.relay)                                   //Отправляем запрос на открытие двери   
+          await update_blocked_status();
         
           if(unlock_status == null){                                                                                              //Если ответ пустой, значит ошибка           
             console.log(`[wb-rosdomofon] Адаптер ${ADAPTER_ID} | Ошибка при попытке открыть дверь`);      
@@ -741,7 +786,27 @@ async function loading_user(user_params) {
       wb.dev[ADAPTER_ID + '/hls_proxy'] = hlsUrl;
       //wb.dev[ADAPTER_ID + "/rtsp"] = await rd.get_rtsp(access_token, device_params.camId);   //Записываем RTSP ссылку в контрол  
     }
+
+    wb.createControl(ADAPTER_ID, "blocked", {
+      title: {ru: "Заблокирован", en:  "Blocked"},
+      type: "switch",
+      readonly: true,
+      order: 6,
+    })
   
+  }
+
+  async function update_blocked_status() {
+    const user_keys = await rd.get_adapters(access_token, true);
+
+    if (!Array.isArray(user_keys)) {
+      console.error(`[wb-rosdomofon] Пользователь №${user_params.id} | Ошибка получения списка ключей`);
+      return;
+    }
+
+    user_keys.forEach(key => {
+      wb.dev[`${key.adapterId}/blocked`] = key.blocked === true;
+    });
   }
 }
 
@@ -753,6 +818,16 @@ async function get_devices (access_token) {
   let user_devices = await rd.get_adapters(access_token, false);
   let user_cameras = await rd.get_cameras(access_token, false);
   let user_list_devices = [];
+
+  if (!Array.isArray(user_devices)) {
+    console.error("[wb-rosdomofon] Ошибка получения списка устройств");
+    return null;
+  }
+
+  if (!Array.isArray(user_cameras)) {
+    console.error("[wb-rosdomofon] Ошибка получения списка камер");
+    return null;
+  }
 
   // Индексируем камеры по adapterId
   const camerasByAdapter = new Map();
